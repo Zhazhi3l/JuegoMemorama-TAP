@@ -52,6 +52,15 @@ namespace JuegoMemorama
                 secondClicked = clickedLabel;
                 secondClicked.ForeColor = Color.Black;
 
+                checkForWinner();
+
+                if (firstClicked.Text == secondClicked.Text)
+                {
+                    firstClicked = null;
+                    secondClicked = null;
+                    return;
+                }
+
                 timer1.Start();
             }
         }
@@ -64,6 +73,21 @@ namespace JuegoMemorama
 
             firstClicked = null;
             secondClicked = null;
+        }
+
+        private void checkForWinner()
+        {
+            foreach (Control control in tableLayoutPanel1.Controls)
+            {
+                Label iconLabel = control as Label;
+                if (iconLabel != null)
+                {
+                    if (iconLabel.ForeColor == iconLabel.BackColor)
+                        return;
+                }
+            }
+            MessageBox.Show("¡Encontraste todos los iconos!", "¡Felicidades!");
+            Close();
         }
     }
 }
